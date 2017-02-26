@@ -52,6 +52,8 @@
     <Compile Include="Abstract\IProductRepository.cs" />
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
+    <Compile Include="Entities\Cart.cs" />
+    <Compile Include="Entities\Cartline.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Migrations\201610032354493_InitialCreate.cs" />
     <Compile Include="Migrations\201610032354493_InitialCreate.Designer.cs">

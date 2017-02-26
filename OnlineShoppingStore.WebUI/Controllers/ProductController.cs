@@ -1,4 +1,5 @@
 ﻿using OnlineShoppingStore.Domain.Abstract;
+using OnlineShoppingStore.WebUI.Models;
 using System.Linq;
 using System.Web.Mvc;
 
@@ -14,11 +15,25 @@ namespace OnlineShoppingStore.WebUI.Controllers
         }
 
         // GET: Product
-        public ViewResult List(int page = 1)
+        public ViewResult List(string category = "Men", int page = 1)
         {
-            return View(repository.Products
-                .OrderBy(p => p.ProductId).Skip((page - 1) * PageSize).Take(PageSize)
-                );
+            ProductsListViewModel model = new ProductsListViewModel
+            {
+                Products = repository.Products
+                .Where(p => (category == null || p.Category == category))
+                .OrderBy(p => p.ProductId).Skip((page - 1) * PageSize).Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    Currentpage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = category == null ? repository.Products.Count() : repository.Products.Where(p => p.Category == category).Count()
+                },
+                CurrentCategory = category
+
+
+            };
+            return View(model);
         }
+
     }
 }
